@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate', 
+angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
                'ui.bootstrap', // for modal dialogs
     'ngResource', 'ui.router', 'ngCookies', 'ngAnimate', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'ngplus',
 
@@ -18,12 +18,12 @@ angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
             }
-            
+
             // Update the language
             Language.getCurrent().then(function (language) {
                 $translate.use(language);
             });
-            
+
         });
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
@@ -36,12 +36,12 @@ angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
             if (toState.data.pageTitle) {
                 titleKey = toState.data.pageTitle;
             }
-            
+
             $translate(titleKey).then(function (title) {
                 // Change window title with translated one
                 $window.document.title = title;
             });
-            
+
         });
 
         $rootScope.back = function() {
@@ -86,7 +86,7 @@ angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
         $httpProvider.interceptors.push('errorHandlerInterceptor');
         $httpProvider.interceptors.push('authExpiredInterceptor');
         $httpProvider.interceptors.push('notificationInterceptor');
-        
+
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{lang}/{part}.json'
@@ -100,5 +100,5 @@ angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
         tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
-        
+
     });

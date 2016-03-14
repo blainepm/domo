@@ -31,6 +31,10 @@ module.exports = function (grunt) {
                 files: ['bower.json'],
                 tasks: ['wiredep']
             },
+            compass: {
+                files: ['assets/styles/{,*/}*.{scss,sass}'],
+                tasks: ['compass:server']
+            },
             ngconstant: {
                 files: ['Gruntfile.js'],
                 tasks: ['ngconstant:dev']
@@ -39,9 +43,10 @@ module.exports = function (grunt) {
         autoprefixer: {
             // src and dest is configured in a subtask called "generated" by usemin
         },
+
         wiredep: {
             app: {
-                src: ['index.html'],
+                src: ['index.html', 'assets/styles/main.scss'],
                 exclude: [
                     /angular-i18n/  // localizations are loaded dynamically
                 ]
@@ -62,8 +67,36 @@ module.exports = function (grunt) {
                         }
                     }
                 }
+            },
+            sass: {
+                src: ['<%= yeoman.app %>/assets/styles/{,*/}*.{scss,sass}'],
+                ignorePath: /(\.\.\/){1,2}bower_components\//
             }
         },
+
+        compass: {
+                options: {
+                    sassDir: 'assets/styles',
+                    cssDir: 'assets/styles',
+                    generatedImagesDir: '.tmp/assets/images/generated',
+                    imagesDir: 'assets/images',
+                    javascriptsDir: 'scripts',
+                    fontsDir: 'assets/fonts',
+                    importPath: 'bower_components',
+                    httpImagesPath: '/assets/images',
+                    httpGeneratedImagesPath: '/assets/images/generated',
+                    httpFontsPath: '/assets/fonts',
+                    relativeAssets: false
+                },
+                dist: {},
+                server: {
+                    options: {
+                        debugInfo: true
+                    }
+                }
+            },
+
+
         browserSync: {
             dev: {
                 bsFiles: {
@@ -266,6 +299,20 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        concurrent: {
+            server: [
+                'compass:server'
+            ],
+            test: [
+                'compass'
+            ],
+            dist: [
+                'compass:dist',
+                'imagemin',
+                'svgmin'
+            ]
+        },
+
         karma: {
             unit: {
                 configFile: 'test/karma.conf.js',
@@ -313,6 +360,7 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep',
         'ngconstant:dev',
+        //'concurrent:server',
         'browserSync:dev',
         'watch'
     ]);
@@ -326,6 +374,7 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep:test',
         'ngconstant:dev',
+        'concurrent:test',
         'karma'
     ]);
 
@@ -335,6 +384,7 @@ module.exports = function (grunt) {
         'ngconstant:prod',
         'useminPrepare',
         'ngtemplates',
+        'concurrent:dist',
         'imagemin',
         'svgmin',
         'concat',

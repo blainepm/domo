@@ -5,8 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
+
+/**
+ * Route Imports
+ */
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var dashboard = require('./routes/dashboard');
+
 
 var app = express();
 
@@ -56,6 +63,11 @@ if (app.get('env') === 'production') {
         });
     });
 }
+
+/**
+ * Routes
+ */
+app.use('/dashboard', dashboard);
 
 
 module.exports = app;

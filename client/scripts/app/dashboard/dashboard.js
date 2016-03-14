@@ -3,16 +3,16 @@
 angular.module('blaineApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('home', {
+            .state('dashboard', {
                 parent: 'site',
-                url: '/',
+                url: '/dashboard',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: [],
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/main/main.html',
-                        controller: 'MainController'
+                        templateUrl: 'scripts/app/dashboard/dashboard.html',
+                        controller: 'DashboardController'
                     }
                 },
                 resolve: {

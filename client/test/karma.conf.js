@@ -30,7 +30,7 @@ module.exports = function (config) {
             '../bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
             '../bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
             '../bower_components/angular-ui-router/release/angular-ui-router.js',
-            '../bower_components/bootstrap/dist/js/bootstrap.js',
+            '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
             '../bower_components/extras.angular.plus/ngplus-overlay.js',
             '../bower_components/json3/lib/json3.js',
             '../bower_components/ng-file-upload/ng-file-upload.js',
