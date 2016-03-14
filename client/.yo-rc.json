@@ -1,0 +1,8 @@
+{
+  "generator-angular-app": {
+    "baseName": "Blaine",
+    "authenticationType": "session",
+    "enableTranslation": true,
+    "enableBootswatch": false
+  }
+}
