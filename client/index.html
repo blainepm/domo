@@ -21,19 +21,18 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
+
         <div ui-view="navbar" ng-cloak=""></div>
-        <div class="container">
-            <div class="well shuffle-animation" ui-view="content"></div>
+
+        <div class="container-fluid">
+            <div class="shuffle-animation" ui-view="content"></div>
 
             <div ngplus-overlay="" ngplus-overlay-delay-in="50" ngplus-overlay-delay-out="700" ngplus-overlay-animation="dissolve-animation">
-                <!-- <img src="assets/images/busy.gif"/> -->
-
-                	<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
+                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
             </div>
 
             <div class="footer">
                 <p translate="footer" class="pull-left">This is your footer</p>
-
             </div>
         </div>
 
@@ -67,7 +66,7 @@
         <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
         <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+        <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
         <script src="bower_components/extras.angular.plus/ngplus-overlay.js"></script>
         <script src="bower_components/json3/lib/json3.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
@@ -127,7 +126,8 @@
     <script src="scripts/app/main/main.controller.js"></script>
     <script src="scripts/app/dashboard/dashboard.js"></script>
     <script src="scripts/app/dashboard/dashboard.controller.js"></script>
-    <!-- <script src="scripts/app/dashboard/clock.directive.js"></script> -->
+    <script src="scripts/app/dashboard/clock.directive.js"></script>
+    <script src="scripts/app/dashboard/weather.service.js"></script>
     <script src="bower_components/messageformat/locale/en.js"></script>
     <script src="bower_components/messageformat/locale/fr.js"></script>
     <script src="scripts/components/language/language.service.js"></script>

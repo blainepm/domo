@@ -15,14 +15,5 @@ router.post('/', function (req, res) {
     });
 });
 
-
-// Setup the route for handling 'special' posts
-router.post('/special', function (req, res) {
-    res.json({
-        'msg': 'this was posted to /dashboard/special'
-    });
-});
-
-
 // Expose the module
 module.exports = router;

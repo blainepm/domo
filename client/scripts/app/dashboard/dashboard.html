@@ -1,12 +1,23 @@
-<div ng-cloak>
 
-    <div class="row">
-        <div class="col-md-4">
-            <clock format="longDate"></clock>
-        </div>
+<div class="row" ng-cloak>
+    <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="panel panel-default left">
+            <div class="panel-heading">
+                <div class="pull-right">
+                    <!-- <a href="" class="btn btn-round-sm btn-link ng-scope" bs-dropdown="dropdown" data-template-url="assets/tpl/partials/dropdown-list-example.html" data-animation="mat-grow-top-right">
+                    <i class="md md-more-vert"></i>
+                    <div class="ripple-wrapper"></div></a> -->
+                </div>
 
-        <div class="col-md-4">
-            <clock format="HH:mm"></clock>
+                <clock format="HH:mm" class="h2"></clock>
+
+                <!-- panel-title -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <clock format="longDate"></clock>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
