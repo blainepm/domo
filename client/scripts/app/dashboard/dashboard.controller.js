@@ -12,11 +12,14 @@ angular.module('blaineApp')
 
     Weather.getForcast(function(forcast) {
         $scope.forcast = forcast;
+        console.log($scope.forcast);
     });
 
-    Weather.getWeather(function(weather){
+    Weather.getWeather(function(weather) {
         $scope.weather = weather;
 
-        weather.main.tempdegre = $filter('number')( (weather.main.temp - 273.15), 1);
+        $scope.weather.tempdegre = $filter('number')( ($scope.weather.main.temp - 273.15), 1);
+
+        console.log($scope.weather);
     });
 });
