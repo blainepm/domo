@@ -4,9 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-
-
+var compression = require('compression');
+var mongoose = require('mongoose');
 
 /**
  * Route Imports
@@ -14,9 +13,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 
-
 var app = express();
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,7 +21,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 
 /**
  * Development Settings
@@ -35,6 +31,7 @@ if (app.get('env') === 'development') {
     // This covers serving up the index page
     app.use(express.static(path.join(__dirname, '../client/.tmp')));
 
+    mongoose.connect('mongodb://localhost:27017/domo');
 
     // Error Handling
     app.use(function(err, req, res, next) {
@@ -53,6 +50,10 @@ if (app.get('env') === 'production') {
     // changes it to use the optimized version for production
     app.use(express.static(path.join(__dirname, '/dist')));
 
+    //compression gzip
+    app.use(compression());
+
+
     // production error handler
     // no stacktraces leaked to user
     app.use(function(err, req, res, next) {
@@ -68,6 +69,10 @@ if (app.get('env') === 'production') {
  * Routes
  */
 app.use('/dashboard', dashboard);
+
+
+var cron = require('./system/cron');
+
 
 
 module.exports = app;
