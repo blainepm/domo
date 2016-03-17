@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('blaineApp')
-.controller('DashboardController', function ($scope, $filter, Principal, Weather) {
+.controller('DashboardController', function ($scope, $filter, Principal, Weather, Forecast) {
     Principal.identity().then(function(account) {
         $scope.account = account;
         $scope.isAuthenticated = Principal.isAuthenticated;
@@ -10,12 +10,12 @@ angular.module('blaineApp')
     $scope.forcast = null;
     $scope.weather = null;
 
-    Weather.getForcast(function(forcast) {
+    Forecast.get(function(forcast) {
         $scope.forcast = forcast;
         console.log($scope.forcast);
     });
 
-    Weather.getWeather(function(weather) {
+    Weather.get(function(weather) {
         $scope.weather = weather;
 
         $scope.weather.tempdegre = $filter('number')( ($scope.weather.main.temp - 273.15), 1);

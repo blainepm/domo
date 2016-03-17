@@ -4,40 +4,51 @@ var express = require('express');
 var router = express.Router();
 
 // Setup the Route
-router.post('/', function (req, res) {
+router.get('/weather', function (req, res) {
 
-    // show the request body in the command line
-    console.log(req.body);
+    var Weather = require('providers').OpenWeatherMap.Weather;
 
-    // return a json response to angular
-    res.json({
-        'msg': 'success!'
+    var weather = new Weather({
+        url   : 'http://api.openweathermap.org/',
+        APPID : 'cc0802162cf56089d0da91b734449275',
+        cache : true, // Cache API requests?
+        ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+            minutes: 27,
+            seconds: 45
+        }
+    });
+
+
+    // Retrieve weather information from coordinates (Sydney, Australia)
+    weather.get({'lat':45.490697, 'lon':4.450013}, function(err, response) {
+        // return a json response to angular
+        res.json(response);
     });
 });
 
 
-// var Speaker = require('speaker');
-// var lame = require('lame');
-// var fs = require('fs');
-//
-// // Create the Speaker instance
-// var speaker = new Speaker({
-//   channels: 2,          // 2 channels
-//   bitDepth: 16,         // 16-bit samples
-//   sampleRate: 44100     // 44,100 Hz sample rate
-// });
-//
-// fs.createReadStream('101.mp3')
-// .pipe(new lame.Decoder())
-// .on('format', function (speaker) {
-//     this.pipe(new Speaker(speaker));
-// });
-//
-//
-//
-// // PCM data from stdin gets piped into the speaker
-// process.stdin.pipe(speaker);
 
+router.get('/forecast', function (req, res) {
+
+    var Forecast = require('providers').OpenWeatherMap.Forecast;
+
+    var forecast = new Forecast({
+        url   : 'http://api.openweathermap.org/',
+        APPID : 'cc0802162cf56089d0da91b734449275',
+        cache : true, // Cache API requests?
+        ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+            minutes: 27,
+            seconds: 45
+        }
+    });
+
+
+    // Retrieve weather information from coordinates (Sydney, Australia)
+    forecast.get({'lat':45.490697, 'lon':4.450013}, function(err, response) {
+        // return a json response to angular
+        res.json(response);
+    });
+});
 
 // Expose the module
 module.exports = router;

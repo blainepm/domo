@@ -31,7 +31,7 @@ if (app.get('env') === 'development') {
     // This covers serving up the index page
     app.use(express.static(path.join(__dirname, '../client/.tmp')));
 
-    mongoose.connect('mongodb://localhost:27017/domo');
+    // mongoose.connect('mongodb://localhost:27017/domo');
 
     // Error Handling
     app.use(function(err, req, res, next) {
@@ -69,10 +69,6 @@ if (app.get('env') === 'production') {
  * Routes
  */
 app.use('/dashboard', dashboard);
-
-
-var cron = require('./system/cron');
-
 
 
 module.exports = app;
