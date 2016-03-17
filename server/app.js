@@ -7,11 +7,21 @@ var bodyParser = require('body-parser');
 var compression = require('compression');
 var mongoose = require('mongoose');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+
+global.__base = __dirname + '/';
+
+
 /**
  * Route Imports
  */
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
+var user = require('./routes/user');
+
 
 var app = express();
 
@@ -21,6 +31,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 /**
  * Development Settings
@@ -69,6 +87,16 @@ if (app.get('env') === 'production') {
  * Routes
  */
 app.use('/dashboard', dashboard);
+app.use('/api', user);
+
+// passport config
+var Account = require('./models/user');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose
+mongoose.connect('mongodb://localhost:27017/passport_local_mongoose_express4');
 
 
 module.exports = app;

@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="col-lg-3 col-md-6 col-xs-12 widget ">
+    <div class="col-lg-3 col-md-6 col-xs-12 widget" ng-if="weather != null && forecasts.length > 0">
         <div class="panel panel-default left weather">
             <div class="panel-heading">
                 <div class="pull-right">
@@ -37,21 +37,27 @@
                     <div class="col-md-2 col-xs-2">
                         <span class="h1" ng-switch="weather.weather[0].icon">
                             <i ng-switch-when="03d" class="wi wi-cloud"></i>
+                            <i ng-switch-when="01n" class="wi wi-cloud"></i>
                             <i ng-switch-default class="wi wi-day-sunny"></i>
                         </span>
                     </div>
-                    
+
                     <div class="col-md-12 col-xs-12">
-                        <span class="h1">{{weather.name}}</span>
+                        <span class="h3">{{weather.name}}</span>
                     </div>
                 </div>
 
-
                 <!-- panel-title -->
-                <div class="row forecast">
-                    <div class="col-md-4 col-xs-4">09/06/2015</div>
-                    <div class="col-md-4 col-xs-4">20°</div>
-                    <div class="col-md-4 col-xs-4"><i class="wi wi-day-sunny wi-fw h5"></i></div>
+                <div class="row forecast" ng-repeat="forecast in forecasts">
+                    <div class="col-md-6 col-xs-6">{{forecast.dt_date | date:shortDate }}</div>
+                    <div class="col-md-4 col-xs-4">{{forecast.tempdegre}}°</div>
+                    <div class="col-md-2 col-xs-2">
+                        <span ng-switch="forecast.weather[0].icon">
+                            <i ng-switch-when="03d" class="wi wi-cloud wi-fw h5"></i>
+                            <i ng-switch-when="01n" class="wi wi-cloud wi-fw h5"></i>
+                            <i ng-switch-default class="wi wi-day-sunny wi-fw h5"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
