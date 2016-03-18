@@ -4,67 +4,66 @@ var User = require(__base + 'models/user');
 var router = express.Router();
 
 
-
 router.post('/register', function(req, res) {
+
     User.register(new User(
         {
             username    : req.body.login,
-            email       : email,
+            email       : req.body.email,
             authorities : ['ROLE_USER'],
             active      : false,
             langKey     : req.body.langKey
         }
     ), req.body.password, function(err, account) {
-
         if (err) {
-            console.log('error!!!!!!!!!!!!!!');
-            return res.json('register', { account : account });
+            return res.status(400).json(err);
         }
 
-        res.json();
-
-        // passport.authenticate('local')(req, res, function () {
-        //     console.log('ok!!!!!!!!!!!!!!');
-        //     res.json(account);
-        // });
+        return res.status(200).json();
     });
 });
 
+
+router.post('/account/change_password', function(req, res, next) {
+
+    User.findByUsername(req.user.username).then(function(sanitizedUser){
+        if (sanitizedUser){
+            sanitizedUser.setPassword(req.body.password, function(){
+                sanitizedUser.save();
+                return res.status(200).json({msg: 'password reset successful'});
+            });
+        } else {
+            res.status(200).json({status: 0, msg: 'This user does not exist'});
+        }
+    },function(err){
+        console.log(err);
+    })
+});
+
+router.get('/account/sessions', function(req, res, next) {
+    res.status(200).json({msg: req.session});
+});
+
 router.get('/account', function(req, res) {
+
     if ( !req.user || !req.user.active) {
         return res.status(401).send({info : "user does not exist."});
     }
 
-    res.json(req.user);
+    res.status(200).json(req.user);
 });
 
+
 router.post('/account', function(req, res) {
-    // console.log(res.body);
     if ( !req.user) {
         return res.status(401).send({info : "user does not exist."});
     }
 
-    var content = '';
-
-    req.on('data', function (data) {
-        // Append data.
-        content += data;
+    User.findOneAndUpdate({_id:req.body._id}, req.body, function (err, place) {
+        res.json(place);
     });
-
-    req.on('end', function () {
-        // Assuming, we're receiving JSON, parse the string into a JSON object to return.
-        var data = JSON.parse(content);
-
-        User.update(req.user, { $set: data}, {}, function() {
-            res.json(req.user);
-        });
-    });
-
 });
 
-// router.post('/authentication', passport.authenticate('local'), function(req, res) {
-//     res.json({ message: "Authenticated" });
-// });
 
 router.post('/authentication',function(req, res, next) {
 

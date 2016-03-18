@@ -41,7 +41,7 @@ angular.module('blaineApp')
                         if (isAuthenticated && $rootScope.toState.parent === 'account' && ($rootScope.toState.name === 'login' || $rootScope.toState.name === 'register')) {
                             $state.go('home');
                         }
-console.log($rootScope.toState, $rootScope.toState.data.authorities.length, !Principal.hasAnyAuthority($rootScope.toState.data.authorities));
+
                         if ($rootScope.toState.data.authorities && $rootScope.toState.data.authorities.length > 0 && !Principal.hasAnyAuthority($rootScope.toState.data.authorities)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
@@ -74,7 +74,7 @@ console.log($rootScope.toState, $rootScope.toState.data.authorities.length, !Pri
 
             updateAccount: function (account, callback) {
                 var cb = callback || angular.noop;
-console.log('ici');
+
                 return Account.save(account,
                     function () {
                         return cb(account);

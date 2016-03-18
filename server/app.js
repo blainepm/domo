@@ -11,7 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 
-var config = require('./config.js')
+var config = require('./config.js');
 global.__base = __dirname + '/';
 
 
@@ -49,12 +49,9 @@ if (app.get('env') === 'development') {
     // This covers serving up the index page
     app.use(express.static(path.join(__dirname, '../client/.tmp')));
 
-    // mongoose.connect('mongodb://localhost:27017/domo');
-
     // Error Handling
     app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
+        res.status(err.status || 500).json('error', {
             message: err.message,
             error: err
         });
@@ -75,8 +72,7 @@ if (app.get('env') === 'production') {
     // production error handler
     // no stacktraces leaked to user
     app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
+        res.status(err.status || 500).json('error', {
             message: err.message,
             error: {}
         });

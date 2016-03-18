@@ -14,7 +14,7 @@ angular.module('blaineApp')
                 $scope.doNotMatch = 'ERROR';
             } else {
                 $scope.doNotMatch = null;
-                Auth.changePassword($scope.password).then(function () {
+                Auth.changePassword({ password: $scope.password }).then(function () {
                     $scope.error = null;
                     $scope.success = 'OK';
                 }).catch(function () {
