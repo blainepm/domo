@@ -10,7 +10,7 @@ angular.module('blaineApp')
                 AuthServerProvider.login(credentials).then(function (data) {
                     // retrieve the logged account information
                     Principal.identity(true).then(function(account) {
-                      
+
                         // After the login the language will be changed to
                         // the language selected by the user during his registration
                         $translate.use(account.langKey);
@@ -41,7 +41,7 @@ angular.module('blaineApp')
                         if (isAuthenticated && $rootScope.toState.parent === 'account' && ($rootScope.toState.name === 'login' || $rootScope.toState.name === 'register')) {
                             $state.go('home');
                         }
-
+console.log($rootScope.toState, $rootScope.toState.data.authorities.length, !Principal.hasAnyAuthority($rootScope.toState.data.authorities));
                         if ($rootScope.toState.data.authorities && $rootScope.toState.data.authorities.length > 0 && !Principal.hasAnyAuthority($rootScope.toState.data.authorities)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
@@ -74,7 +74,7 @@ angular.module('blaineApp')
 
             updateAccount: function (account, callback) {
                 var cb = callback || angular.noop;
-
+console.log('ici');
                 return Account.save(account,
                     function () {
                         return cb(account);

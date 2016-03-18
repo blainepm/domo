@@ -11,7 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 
-
+var config = require('./config.js')
 global.__base = __dirname + '/';
 
 
@@ -96,7 +96,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://localhost:27017/passport_local_mongoose_express4');
+mongoose.connect(config.mongodb);
 
 
 module.exports = app;
