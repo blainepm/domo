@@ -83,3 +83,4 @@ server/.tmp
 client/.tmp
 server/dist
 client/dist
+!client/scripts/app/admin/logs

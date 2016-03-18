@@ -4,7 +4,8 @@ angular.module('blaineApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
                'ui.bootstrap', // for modal dialogs
     'ngResource', 'ui.router', 'ngCookies', 'ngAnimate', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'ngplus',
 
-    'blaineApp.account'
+    'blaineApp.account',
+    'blaineApp.admin'
     ])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {

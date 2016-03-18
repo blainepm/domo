@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('blaineApp')
+angular.module('blaineApp.account')
     .config(function ($stateProvider) {
         $stateProvider
             .state('logout', {

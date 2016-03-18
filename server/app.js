@@ -18,9 +18,10 @@ global.__base = __dirname + '/';
 /**
  * Route Imports
  */
-var routes = require('./routes/index');
+var routes    = require('./routes/index');
 var dashboard = require('./routes/dashboard');
-var user = require('./routes/user');
+var user      = require('./routes/user');
+var metrics   = require('./routes/metrics');
 
 
 var app = express();
@@ -84,6 +85,7 @@ if (app.get('env') === 'production') {
  */
 app.use('/dashboard', dashboard);
 app.use('/api', user);
+app.use('/metrics', metrics);
 
 // passport config
 var Account = require('./models/user');
