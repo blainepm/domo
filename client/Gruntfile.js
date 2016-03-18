@@ -24,7 +24,7 @@ module.exports = function (grunt) {
         yeoman: {
             // configurable paths
             app: require('./bower.json').appPath || 'app',
-            dist: './dist'
+            dist: '../server/dist'
         },
         watch: {
             bower: {
@@ -110,17 +110,17 @@ module.exports = function (grunt) {
             prod: {
                 bsFiles: {
                     src : [
-                        './dist/**/*.html',
-                        './dist/**/*.json',
-                        './dist/assets/styles/**/*.css',
-                        './dist/scripts/**/*.js',
-                        './dist/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                        '../server/dist/**/*.html',
+                        '../server/dist/**/*.json',
+                        '../server/dist/assets/styles/**/*.css',
+                        '../server/dist/scripts/**/*.js',
+                        '../server/dist/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                     ]
                 },
                 options: {
                     watchTask: true,
                     server: {
-                        baseDir: "./dist"
+                        baseDir: "../server/dist"
                     },
                 }
             }
@@ -131,8 +131,8 @@ module.exports = function (grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= yeoman.dist %>/*',
-                        '!<%= yeoman.dist %>/.git*'
+                        '../server/dist/*',
+                        '!../server/dist/.git*'
                     ]
                 }]
             },
@@ -159,10 +159,10 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>/scripts/**/*.js',
-                        '<%= yeoman.dist %>/assets/styles/**/*.css',
-                        '<%= yeoman.dist %>/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/assets/fonts/*'
+                        '../server/dist/scripts/**/*.js',
+                        '../server/dist/assets/styles/**/*.css',
+                        '../server/dist/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+                        '../server/dist/assets/fonts/*'
                     ]
                 }
             }
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
         useminPrepare: {
             html: './**/*.html',
             options: {
-                dest: '<%= yeoman.dist %>',
+                dest: '../server/dist',
                 flow: {
                     html: {
                         steps: {
@@ -183,17 +183,17 @@ module.exports = function (grunt) {
             }
         },
         usemin: {
-            html: ['<%= yeoman.dist %>/**/*.html'],
-            css: ['<%= yeoman.dist %>/assets/styles/**/*.css'],
-            js: ['<%= yeoman.dist %>/scripts/**/*.js'],
+            html: ['../server/dist/**/*.html'],
+            css: ['../server/dist/assets/styles/**/*.css'],
+            js: ['../server/dist/scripts/**/*.js'],
             options: {
-                assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/assets/styles', '<%= yeoman.dist %>/assets/images', '<%= yeoman.dist %>/assets/fonts'],
+                assetsDirs: ['../server/dist', '../server/dist/assets/styles', '../server/dist/assets/images', '../server/dist/assets/fonts'],
                 patterns: {
                     js: [
                         [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
                     ]
                 },
-                dirs: ['<%= yeoman.dist %>']
+                dirs: ['../server/dist']
             }
         },
         imagemin: {
@@ -202,7 +202,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'assets/images',
                     src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
-                    dest: '<%= yeoman.dist %>/assets/images'
+                    dest: '../server/dist/assets/images'
                 }]
             }
         },
@@ -212,7 +212,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'assets/images',
                     src: '**/*.svg',
-                    dest: '<%= yeoman.dist %>/assets/images'
+                    dest: '../server/dist/assets/images'
                 }]
             }
         },
@@ -247,9 +247,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>',
+                    cwd: '../server/dist',
                     src: ['*.html'],
-                    dest: '<%= yeoman.dist %>'
+                    dest: '../server/dist'
                 }]
             }
         },
@@ -261,7 +261,7 @@ module.exports = function (grunt) {
                     dot: true,
                     flatten: true,
                     cwd: './',
-                    dest: '<%= yeoman.dist %>/assets/fonts',
+                    dest: '../server/dist/assets/fonts',
                     src: [
                       'bower_components/bootstrap/fonts/*.*'
                     ]
@@ -272,7 +272,7 @@ module.exports = function (grunt) {
                     expand: true,
                     dot: true,
                     cwd: './',
-                    dest: '<%= yeoman.dist %>',
+                    dest: '../server/dist',
                     src: [
                         '*.html',
                         'scripts/**/*.html',
@@ -284,7 +284,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: '.tmp/assets/images',
-                    dest: '<%= yeoman.dist %>/assets/images',
+                    dest: '../server/dist/assets/images',
                     src: [
                         'generated/*'
                     ]

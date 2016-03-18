@@ -79,3 +79,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+server/.tmp
+client/.tmp
+server/dist
+client/dist
