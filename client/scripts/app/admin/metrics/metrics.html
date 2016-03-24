@@ -5,21 +5,53 @@
     <button type="button" class="btn btn-primary" ng-click="refresh()"><span class="glyphicon glyphicon-refresh"></span>&nbsp;<span translate="metrics.refresh.button">Refresh</span></button>
 </p>
 
+<h3 translate="metrics.system.title">System</h3>
+
+<div class="row" ng-hide="updatingMetrics">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.hostname">Hostname</div>
+            <div class="col-md-7 text-right">{{metrics.system.hostname}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.kernel">Kernel</div>
+            <div class="col-md-7 text-right">{{metrics.system.kernel}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.last_boot">Last boot</div>
+            <div class="col-md-7 text-right">{{metrics.system.last_boot}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.os">OS</div>
+            <div class="col-md-7 text-right">{{metrics.system.os}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.server_datetime">Server datetime</div>
+            <div class="col-md-7 text-right">{{metrics.system.server_datetime}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" translate="metrics.system.uptime">Uptime</div>
+            <div class="col-md-7 text-right">{{metrics.system.uptime}}</div>
+        </div>
+    </div>
+</div>
+
 <h3 translate="metrics.jvm.title">JVM Metrics</h3>
+
 <div class="row" ng-hide="updatingMetrics">
     <div class="col-md-4">
         <b translate="metrics.jvm.memory.title">Memory</b>
-        <p><span translate="metrics.jvm.memory.total">Total Memory</span> ({{metrics.gauges['jvm.memory.total.used'].value / 1000000 | number:0}}M / {{metrics.gauges['jvm.memory.total.max'].value / 1000000 | number:0}}M)</p>
-        <progressbar min="0" max="metrics.gauges['jvm.memory.total.max'].value" value="metrics.gauges['jvm.memory.total.used'].value" class="progress-striped active" type="success">
-            <span>{{metrics.gauges['jvm.memory.total.used'].value * 100 / metrics.gauges['jvm.memory.total.max'].value  | number:0}}%</span>
+        <p><span translate="metrics.jvm.memory.total">Memory free</span> ({{metrics.memory.MEM_FREE / 1000 | number:0}}M / {{metrics.memory.MEM_TOTAL / 1000 | number:0}}M)</p>
+        <progressbar min="0" max="metrics.memory.MEM_TOTAL" value="metrics.memory.MEM_FREE" class="progress-striped active" type="success">
+            <span>{{metrics.memory.MEM_FREE * 100 / metrics.memory.MEM_TOTAL  | number:0}}%</span>
         </progressbar>
-        <p><span translate="metrics.jvm.memory.heap">Heap Memory</span> ({{metrics.gauges['jvm.memory.heap.used'].value / 1000000 | number:0}}M / {{metrics.gauges['jvm.memory.heap.max'].value / 1000000 | number:0}}M)</p>
-        <progressbar min="0" max="metrics.gauges['jvm.memory.heap.max'].value" value="metrics.gauges['jvm.memory.heap.used'].value" class="progress-striped active" type="success">
-            <span>{{metrics.gauges['jvm.memory.heap.used'].value * 100 / metrics.gauges['jvm.memory.heap.max'].value  | number:0}}%</span>
+        <p><span translate="metrics.jvm.memory.heap">Memory cached</span> ({{metrics.memory.MEM_CACHED / 1000000 | number:0}}M / {{metrics.memory.MEM_TOTAL / 1000000 | number:0}}M)</p>
+        <progressbar min="0" max="metrics.memory.MEM_TOTAL" value="metrics.memory.MEM_CACHED" class="progress-striped active" type="success">
+            <span>{{metrics.memory.MEM_CACHED * 100 / metrics.memory.MEM_TOTAL  | number:0}}%</span>
         </progressbar>
-        <p><span translate="metrics.jvm.memory.nonheap">Non-Heap Memory</span> ({{metrics.gauges['jvm.memory.non-heap.used'].value / 1000000 | number:0}}M / {{metrics.gauges['jvm.memory.non-heap.committed'].value / 1000000 | number:0}}M)</p>
-        <progressbar min="0" max="metrics.gauges['jvm.memory.non-heap.committed'].value" value="metrics.gauges['jvm.memory.non-heap.used'].value" class="progress-striped active" type="success">
-            <span>{{metrics.gauges['jvm.memory.non-heap.used'].value * 100 / metrics.gauges['jvm.memory.non-heap.committed'].value  | number:0}}%</span>
+        <p><span translate="metrics.jvm.memory.nonheap">Memory buffered</span> ({{metrics.memory.MEM_BUFFER / 1000000 | number:0}}M / {{metrics.memory.MEM_TOTAL / 1000000 | number:0}}M)</p>
+        <progressbar min="0" max="metrics.memory.MEM_TOTAL" value="metrics.memory.MEM_BUFFER" class="progress-striped active" type="success">
+            <span>{{metrics.memory.MEM_BUFFER * 100 / metrics.memory.MEM_TOTAL  | number:0}}%</span>
         </progressbar>
     </div>
     <div class="col-md-4">
@@ -41,26 +73,8 @@
             <span>{{metrics.gauges['jvm.threads.blocked.count'].value * 100 / metrics.gauges['jvm.threads.count'].value  | number:0}}%</span>
         </progressbar>
     </div>
-    <div class="col-md-4">
-        <b translate="metrics.jvm.gc.title">Garbage collections</b>
-        <div class="row">
-            <div class="col-md-9" translate="metrics.jvm.gc.marksweepcount">Mark Sweep count</div>
-            <div class="col-md-3 text-right">{{metrics.gauges['jvm.garbage.PS-MarkSweep.count'].value}}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-9" translate="metrics.jvm.gc.marksweeptime">Mark Sweep time</div>
-            <div class="col-md-3 text-right">{{metrics.gauges['jvm.garbage.PS-MarkSweep.time'].value}}ms</div>
-        </div>
-        <div class="row">
-            <div class="col-md-9" translate="metrics.jvm.gc.scavengecount">Scavenge count</div>
-            <div class="col-md-3 text-right">{{metrics.gauges['jvm.garbage.PS-Scavenge.count'].value}}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-9" translate="metrics.jvm.gc.scavengetime">Scavenge time</div>
-            <div class="col-md-3 text-right">{{metrics.gauges['jvm.garbage.PS-Scavenge.time'].value}}ms</div>
-        </div>
-    </div>
 </div>
+
 <div class="well well-lg" ng-show="updatingMetrics" translate="metrics.updating">Updating...</div>
 
 <h3 translate="metrics.jvm.http.title">HTTP requests (events per second)</h3>
@@ -211,4 +225,3 @@
 </div>
 
 </div>
-

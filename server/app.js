@@ -1,13 +1,12 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compression = require('compression');
-var mongoose = require('mongoose');
-
-var passport = require('passport');
+var express       = require('express');
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var compression   = require('compression');
+var mongoose      = require('mongoose');
+var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -22,6 +21,12 @@ var routes    = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 var user      = require('./routes/user');
 var metrics   = require('./routes/metrics');
+
+
+/**
+ * Cron
+ */
+var system = require('./system');
 
 
 var app = express();

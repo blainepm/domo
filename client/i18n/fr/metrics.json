@@ -3,6 +3,15 @@
         "title": "Métriques de l'application",
         "refresh.button": "Rafraichir",
         "updating": "Mise à jour...",
+        "system": {
+            "title"          : "Système",
+            "hostname"       : "Hostname",
+            "kernel"         : "Kernel",
+            "last_boot"      : "Dernier boot",
+            "os"             : "OS",
+            "server_datetime": "Date serveur",
+            "uptime"         : "Uptime"
+        },
         "jvm": {
             "title": "Métriques de la JVM",
             "memory": {

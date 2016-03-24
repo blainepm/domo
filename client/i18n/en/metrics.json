@@ -3,8 +3,17 @@
         "title": "Application Metrics",
         "refresh.button": "Refresh",
         "updating": "Updating...",
+        "system": {
+            "title"          : "System",
+            "hostname"       : "Hostname",
+            "kernel"         : "Kernel",
+            "last_boot"      : "Last boot",
+            "os"             : "OS",
+            "server_datetime": "Date datetime",
+            "uptime"         : "Uptime"
+        },
         "jvm": {
-            "title": "JVM Metrics",
+            "title": "Metrics",
             "memory": {
                 "title": "Memory",
                 "total": "Total Memory",

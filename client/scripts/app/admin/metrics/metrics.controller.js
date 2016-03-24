@@ -16,7 +16,7 @@ angular.module('blaineApp.admin')
             });
         };
 
-        $scope.$watch('metrics', function (newValue) {
+        /*$scope.$watch('metrics', function (newValue) {
             $scope.servicesStats = {};
             $scope.cachesStats = {};
             angular.forEach(newValue.timers, function (value, key) {
@@ -37,7 +37,7 @@ angular.module('blaineApp.admin')
                     };
                 }
             });
-        });
+        });*/
 
         $scope.refresh();
 

@@ -37,7 +37,7 @@ function jsonify(inputString)
 
 // Setup the Route
 router.get('/metrics', function (req, res) {
-    var process = child.spawn(__base + 'bin/eZServerMonitor.sh', ['--system','--load'/*, '--cpu'*/, '--memory', '--network']);
+    var process = child.spawn(__base + 'bin/eZServerMonitor.sh', ['--system','--load', '--cpu', '--memory', '--network'/*, '--disk'*/]);
 
     var shellOutput = '';
 

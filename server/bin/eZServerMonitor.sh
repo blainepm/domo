@@ -20,7 +20,7 @@
 # ************************************************************ #
 
 # Disk usage - Show or hide virtual mountpoints (tmpfs)
-DISK_SHOW_TMPFS=false
+DISK_SHOW_TMPFS=true
 
 # Service who returns WAN IP
 GET_WAN_IP="http://www.ezservermonitor.com/myip"
@@ -212,11 +212,16 @@ function cpu()
 # Function : memory
 function memory()
 {
-    MEM_TOTAL=`/usr/bin/free -tmo | grep -i Mem: | awk '{print $2}'`
-    MEM_FREE=`/usr/bin/free -tmo | grep -i Mem: | awk '{print $4+$6+$7}'`
+    MEM_TOTAL=`egrep --color 'MemTotal' /proc/meminfo | egrep '[0-9.]{4,}' -o`
+    MEM_FREE=`egrep --color 'MemFree' /proc/meminfo | egrep '[0-9.]{4,}' -o`
+    MEM_BUFFER=`egrep --color 'Buffers' /proc/meminfo | egrep '[0-9.]{4,}' -o`
+    MEM_CACHED=`egrep --color 'Cached' /proc/meminfo | egrep '[0-9.]{4,}' -o`
 
     echo -e "memory"
-    echo -e "RAM___$MEM_FREE Mb free of $MEM_TOTAL Mb"
+    echo -e "MEM_TOTAL___$MEM_TOTAL"
+    echo -e "MEM_FREE___$MEM_FREE"
+    echo -e "MEM_BUFFER___$MEM_BUFFER"
+    echo -e "MEM_CACHED___$MEM_CACHED"
 }
 
 # Function : network
@@ -268,10 +273,9 @@ function disk_space()
         HDD_DATA=`df -hl | sed "1 d" | grep -iv "^Filesystem|Sys." | grep -vE "^tmpfs|udev" | sort | head -5 | sed s/^/"  "/`
     fi
 
-    echo
-    makeTitle "Disk space (top 5)"
-    echo -e "${GREEN}$HDD_TOP"
-    echo -e "${WHITE}$HDD_DATA"
+    echo -e "disk_space"
+    echo -e "HDD_TOP___$HDD_TOP"
+    echo -e "HDD_DATA___$HDD_DATA"
 }
 
 # Function : services
