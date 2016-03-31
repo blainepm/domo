@@ -1,4 +1,4 @@
 module.exports = {
     'OpenWeatherMap': require('./openweathermap'),
-    'tarifbleu': require('./tarifbleu')
+    'teleinfo': require('./teleinfo'),
 };

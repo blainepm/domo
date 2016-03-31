@@ -79,6 +79,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.ftpconfig
 server/.tmp
 client/.tmp
 server/dist

@@ -25,6 +25,7 @@
     "query-string": "^3.0.1",
     "request-json": "^0.5.5",
     "serve-favicon": "~2.3.0",
-    "teleinfo": "~0.2.0"
+    "teleinfo": "~0.2.0",
+    "winston": "~2.2.0"
   }
 }

@@ -1,7 +1,7 @@
 var express       = require('express');
 var path          = require('path');
 var favicon       = require('serve-favicon');
-var logger        = require('morgan');
+var morgan        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var compression   = require('compression');
@@ -9,11 +9,13 @@ var mongoose      = require('mongoose');
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
+var logger = require("./utils/logger");
 
 var config = require('./config.js');
 global.__base = __dirname + '/';
 
 
+logger.debug("app - route loading");
 /**
  * Route Imports
  */
@@ -22,18 +24,34 @@ var dashboard = require('./routes/dashboard');
 var user      = require('./routes/user');
 var metrics   = require('./routes/metrics');
 
+/*
+var serialPort = require("serialport");
+serialPort.list(function (err, ports) {
+  ports.forEach(function(port) {
+    logger.debug(port);
+  });
+});*/
 
+
+
+logger.debug("app - system loading");
 /**
  * Cron
  */
 var system = require('./system');
 
-
+logger.debug("app - express initialisation");
 var app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
+//configuration du logger
+logger.debug("Overriding 'Express' logger");
+app.use(morgan("dev", {
+        "stream": logger.stream,
+        "skip": function (req, res) { return res.statusCode < 400 }
+    }
+));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

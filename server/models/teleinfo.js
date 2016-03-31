@@ -6,6 +6,7 @@ var Teleinfo = new Schema({
     'OPTARIF'  : String,
     'ISOUSC'   : Number,
     'BASE'     : Number,
+    'HCHP' : String,
     'IINST'    : Number,
     'IMAX'     : Number,
     'PAPP'     : Number,
